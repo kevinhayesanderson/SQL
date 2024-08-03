@@ -1,0 +1,45 @@
+https://app.datacamp.com/learn/skill-tracks/sql-server-fundamentals
+https://app.datacamp.com/learn/career-tracks/sql-server-developer
+https://app.datacamp.com/learn/skill-tracks/sql-server-for-database-administrators
+
+docker pull mcr.microsoft.com/mssql/server:2022-latest
+
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=nYHwQreterDDFFu31Upsfq8nz" `
+   -p 1433:1433 --name sqlTest --hostname sqlTest `
+   -d `
+   mcr.microsoft.com/mssql/server:2022-latest
+ 
+docker exec -it sqlTest "bash"
+
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "nYHwQreterDDFFu31Upsfq8nz"
+
+SELECT name, database_id, create_date FROM sys.databases;  
+GO
+
+SELECT * FROM INFORMATION_SCHEMA.TABLES;
+GO
+
+CREATE DATABASE TestDB;
+SELECT Name from sys.databases;
+GO
+
+USE TestDB;
+CREATE TABLE Inventory (id INT, name NVARCHAR(50), quantity INT);
+INSERT INTO Inventory VALUES (1, 'banana', 150); INSERT INTO Inventory VALUES (2, 'orange', 154);
+GO
+
+USE TestDB;
+SELECT * From Inventory;
+QUIT
+
+exit
+
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=nYHwQreterDDFFu31Upsfq8nz" -p 1433:1433 --name sqlTest --hostname sqlTest -d mcr.microsoft.com/mssql/server:2022-latest
+
+Server=127.0.0.1,1433;Database=TestDB;User Id=SA;Password=nYHwQreterDDFFu31Upsfq8nz;Trust Server Certificate=True;
+
+docker stop 8b68
+
+docker ps
+
+docker start sqlTest
